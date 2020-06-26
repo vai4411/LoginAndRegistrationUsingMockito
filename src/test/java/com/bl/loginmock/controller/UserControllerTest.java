@@ -1,6 +1,7 @@
 package com.bl.loginmock.controller;
 
 import com.bl.loginmock.dto.LoginDTO;
+import com.bl.loginmock.dto.UserDTO;
 import com.bl.loginmock.service.IUserService;
 import org.junit.Assert;
 import org.junit.Before;
@@ -50,5 +51,28 @@ public class UserControllerTest {
         Assert.assertFalse(result.getBody());
     }
 
+    @Test
+    public void registerProcessStatus_WhenPassUserDTO_ShouldReturnTrue() {
+        UserDTO userDTO = new UserDTO();
+        userDTO.setUserName("rp");
+        userDTO.setPassword("rp@123");
+        userDTO.setEmail("rp@gmail.com");
+        Mockito.when(userService.registerStatus(Mockito.any())).thenReturn(true);
+        ResponseEntity<Boolean> result = userController.registerProcess(userDTO);
+        Assert.assertEquals(HttpStatus.OK, result.getStatusCode());
+        Assert.assertTrue(result.getBody());
+    }
+
+    @Test
+    public void registerProcessStatus_WhenPassUserDTO_ShouldReturnFalse() {
+        UserDTO userDTO = new UserDTO();
+        userDTO.setUserName("");
+        userDTO.setPassword("");
+        userDTO.setEmail("");
+        Mockito.when(userService.registerStatus(Mockito.any())).thenReturn(false);
+        ResponseEntity<Boolean> result = userController.registerProcess(userDTO);
+        Assert.assertEquals(HttpStatus.OK, result.getStatusCode());
+        Assert.assertFalse(result.getBody());
+    }
 }
 

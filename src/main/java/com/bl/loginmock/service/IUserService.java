@@ -5,4 +5,5 @@ import com.bl.loginmock.model.User;
 
 public interface IUserService {
     boolean loginStatus(Login login);
+    boolean registerStatus(User user);
 }

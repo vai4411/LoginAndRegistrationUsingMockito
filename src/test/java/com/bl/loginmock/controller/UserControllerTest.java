@@ -15,17 +15,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.util.ReflectionTestUtils;
 
 @RunWith(MockitoJUnitRunner.class)
-public class LoginControllerTest {
+public class UserControllerTest {
 
     @InjectMocks
-    LoginController loginController;
+    UserController userController;
 
     @Mock
     IUserService userService;
 
     @Before
     public void init() {
-        ReflectionTestUtils.setField(loginController, "userService", userService);
+        ReflectionTestUtils.setField(userController, "userService", userService);
     }
 
     @Test
@@ -34,7 +34,7 @@ public class LoginControllerTest {
         loginDTO.setUserName("rp");
         loginDTO.setPassword("rp@123");
         Mockito.when(userService.loginStatus(Mockito.any())).thenReturn(true);
-        ResponseEntity<Boolean> result = loginController.loginProcess(loginDTO);
+        ResponseEntity<Boolean> result = userController.loginProcess(loginDTO);
         Assert.assertEquals(HttpStatus.OK, result.getStatusCode());
         Assert.assertTrue(result.getBody());
     }
@@ -45,7 +45,7 @@ public class LoginControllerTest {
         loginDTO.setUserName("rp");
         loginDTO.setPassword("rp@123");
         Mockito.when(userService.loginStatus(Mockito.any())).thenReturn(false);
-        ResponseEntity<Boolean> result = loginController.loginProcess(loginDTO);
+        ResponseEntity<Boolean> result = userController.loginProcess(loginDTO);
         Assert.assertEquals(HttpStatus.OK,result.getStatusCode());
         Assert.assertFalse(result.getBody());
     }

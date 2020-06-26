@@ -19,4 +19,10 @@ public class UserServiceImpl implements IUserService {
                 repository.findById(login.getUserName()).orElse(null) : null;
             return user != null && login.getPassword().equals(user.getPassword());
     }
+
+    @Override
+    public boolean registerStatus(User user) {
+        User user1 = user != null ? repository.save(user) : null;
+        return user1 != null;
+    }
 }

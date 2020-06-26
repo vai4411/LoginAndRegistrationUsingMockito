@@ -29,7 +29,7 @@ public class LoginControllerTest {
     }
 
     @Test
-    public void loginStatus_ShouldReturnTrue() {
+    public void loginStatus_WhenPassLoginDTO_ShouldReturnTrue() {
         LoginDTO loginDTO = new LoginDTO();
         loginDTO.setUserName("rp");
         loginDTO.setPassword("rp@123");
@@ -38,5 +38,17 @@ public class LoginControllerTest {
         Assert.assertEquals(HttpStatus.OK, result.getStatusCode());
         Assert.assertTrue(result.getBody());
     }
+
+    @Test
+    public void loginStatus_WhenPassLoginDTO_ShouldReturnFalse() {
+        LoginDTO loginDTO = new LoginDTO();
+        loginDTO.setUserName("rp");
+        loginDTO.setPassword("rp@123");
+        Mockito.when(userService.loginStatus(Mockito.any())).thenReturn(false);
+        ResponseEntity<Boolean> result = loginController.loginProcess(loginDTO);
+        Assert.assertEquals(HttpStatus.OK,result.getStatusCode());
+        Assert.assertFalse(result.getBody());
+    }
+
 }
 

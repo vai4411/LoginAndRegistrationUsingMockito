@@ -24,7 +24,7 @@ public class UserServiceImpl implements IUserService {
     public boolean registerStatus(User user) {
         User user1 = (user != null && !ObjectUtils.isEmpty(user.getUserName()) &&
                 !ObjectUtils.isEmpty(user.getPassword()) && !ObjectUtils.isEmpty(user.getEmail())) ?
-                repository.findById(user.getUserName()).orElse(null) : null;
+                repository.save(user) : null;
         return user1 != null;
     }
 }

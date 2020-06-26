@@ -1,43 +1,23 @@
 package com.bl.loginmock.model;
 
 import javax.persistence.*;
-import java.sql.Date;
 
 @Entity
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    private String username;
+    @Column(unique = true,name = "userName")
+    public String userName;
     private String password;
     private String email;
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date date;
 
-    public int getId() {
-        return id;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        System.out.println("username: " + username);
-        this.username = username;
+    public void setUserName(String userName) {
+        System.out.println("userName: " + userName);
+        this.userName = userName;
     }
 
     public String getPassword() {

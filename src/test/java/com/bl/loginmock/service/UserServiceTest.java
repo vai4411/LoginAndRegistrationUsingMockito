@@ -28,7 +28,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void loginStatus_ShouldReturnTrue() {
+    public void loginStatus_WhenUserNameAndPasswordMatches_ShouldReturnTrue() {
         Login login = new Login();
         login.setUserName("rp");
         login.setPassword("rp@123");

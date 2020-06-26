@@ -40,4 +40,18 @@ public class UserServiceTest {
         boolean result = userService.loginStatus(login);
         Assert.assertTrue(result);
     }
+
+    @Test
+    public void loginStatus_WhenUserNameAndPasswordNotMatches_ShouldReturnFalse() {
+        Login login = new Login();
+        login.setUserName("rp");
+        login.setPassword("rp@123");
+        User user = new User();
+        user.setUserName("rp");
+        user.setPassword("dm@123");
+        user.setEmail("rp@gmail.com");
+        Mockito.when(userRepository.findById(Mockito.any())).thenReturn(java.util.Optional.of(user));
+        boolean result = userService.loginStatus(login);
+        Assert.assertFalse(result);
+    }
 }

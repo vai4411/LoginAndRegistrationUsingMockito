@@ -1,3 +1,7 @@
+/**********************************************************************
+ * @purpose : IUserService Interface Use For Mange Service Operations
+ * @author : Vaibhav Patil
+ **********************************************************************/
 package com.bl.loginmock.service;
 
 import com.bl.loginmock.model.Login;

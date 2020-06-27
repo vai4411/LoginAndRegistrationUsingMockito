@@ -1,3 +1,7 @@
+/**********************************************************************
+ * @purpose : Controller Use For Handling Request And Response
+ * @author : Vaibhav Patil
+ **********************************************************************/
 package com.bl.loginmock.controller;
 
 import com.bl.loginmock.dto.LoginDTO;
@@ -19,12 +23,22 @@ public class UserController {
     @Autowired
     IUserService userService;
 
+    /**+
+     * @purpose : Used For Handling Login Requests And Response
+     * @param loginDTO
+     * @return : Boolean Status
+     */
     @PostMapping("/login")
     public ResponseEntity<Boolean> loginProcess(@RequestBody LoginDTO loginDTO) {
         Login login = DTOUtil.dtoToEntity(loginDTO);
         return new  ResponseEntity<> (userService.loginStatus(login),HttpStatus.OK);
     }
 
+    /**+
+     * @purpose : Used For Handling Register Request And Response
+     * @param userDTO
+     * @return : Boolean Status
+     */
     @PostMapping("/register")
     public ResponseEntity<Boolean> registerProcess(@RequestBody UserDTO userDTO) {
         User user = DTOUtil.dtoToEntity(userDTO);

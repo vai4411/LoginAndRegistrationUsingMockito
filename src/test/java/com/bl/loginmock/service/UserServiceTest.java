@@ -13,6 +13,8 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.test.util.ReflectionTestUtils;
 
+import java.util.Collections;
+
 @RunWith(MockitoJUnitRunner.class)
 public class UserServiceTest {
 
@@ -36,7 +38,8 @@ public class UserServiceTest {
         user.setUserName("rp");
         user.setPassword("rp@123");
         user.setEmail("rp@gmail.com");
-        Mockito.when(userRepository.findById(Mockito.any())).thenReturn(java.util.Optional.of(user));
+        Mockito.when(userRepository.findByFirstNameAndLastName(Mockito.any(),Mockito.any()))
+                .thenReturn(Collections.singletonList(user));
         boolean result = userService.loginStatus(login);
         Assert.assertTrue(result);
     }

@@ -1,3 +1,7 @@
+/**********************************************************************
+ * @purpose : UserServiceImpl Use For Business Logic
+ * @author : Vaibhav Patil
+ **********************************************************************/
 package com.bl.loginmock.service;
 
 import com.bl.loginmock.model.Login;
@@ -17,6 +21,11 @@ public class UserServiceImpl implements IUserService {
     @Autowired
     IUserRepository repository;
 
+    /**+
+     * @purpose : Used For Check UserName And Password Matches To Database Entries Or Not
+     * @param login
+     * @return : Boolean Status
+     */
     @Override
     public boolean loginStatus(Login login) {
         List<User> userList = repository.findByFirstNameAndLastName(login.getUserName(),login.getPassword());
@@ -24,6 +33,11 @@ public class UserServiceImpl implements IUserService {
             return !ObjectUtils.isEmpty(userList);
     }
 
+    /**+
+     * @purpose : Used For Validate The Data Of User And Store It
+     * @param user
+     * @return : Boolean Status
+     */
     @Override
     public boolean registerStatus(User user) {
         user.setId(GenerateUniqueId.getUniqueId());

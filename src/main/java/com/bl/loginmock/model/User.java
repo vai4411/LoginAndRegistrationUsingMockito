@@ -1,6 +1,8 @@
+/**********************************************************************
+ * @purpose : User Model Use For Convert User Data Into Object
+ * @author : Vaibhav Patil
+ **********************************************************************/
 package com.bl.loginmock.model;
-
-import com.sun.istack.NotNull;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,11 +15,8 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @NotNull
     private String userName;
-    @NotNull
     private String password;
-    @NotNull
     private String email;
     private String date;
 

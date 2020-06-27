@@ -1,3 +1,7 @@
+/**********************************************************************
+ * @purpose : User DTO Use For Mapping Response In DTO Format
+ * @author : Vaibhav Patil
+ **********************************************************************/
 package com.bl.loginmock.dto;
 
 public class UserDTO {

@@ -2,6 +2,7 @@ package com.bl.loginmock;
 
 import com.bl.loginmock.controller.UserController;
 import com.bl.loginmock.dto.LoginDTO;
+import com.bl.loginmock.dto.UserDTO;
 import com.bl.loginmock.service.IUserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
@@ -41,7 +42,7 @@ public class LoginMockTest {
     }
 
     @Test
-    public void sendRequest_WhenSuccessfullyPass_ShouldReturnHttpStatusOKAndResultTrue() throws Exception {
+    public void sendRequest_WhenLoginPass_ReturnTrue() throws Exception {
         LoginDTO loginDTO = new LoginDTO();
         loginDTO.setUserName("vaibhav");
         loginDTO.setPassword("vai@123");
@@ -61,14 +62,98 @@ public class LoginMockTest {
     }
 
     @Test
-    public void sendRequest_WhenSuccessfullyPass_ShouldReturnHttpStatusOKAndResultFalse() throws Exception {
+    public void sendRequest_WhenLoginFails_dReturnFalse() throws Exception {
         LoginDTO loginDTO = new LoginDTO();
-        loginDTO.setUserName("vaibhav");
+        loginDTO.setUserName("dm");
         loginDTO.setPassword("vai@123");
         ObjectMapper mapper = new ObjectMapper();
         String input = mapper.writeValueAsString(loginDTO);
         Mockito.when(userService.loginStatus(Mockito.any())).thenReturn(false);
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/login")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(input);
+        mockMvc.perform(requestBuilder)
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.content().bytes("false".getBytes()))
+                .andDo(MockMvcResultHandlers.print())
+                .andReturn();
+    }
+
+    @Test
+    public void sendRequest_WhenRegisterSuccessFul_ReturnTrue() throws Exception {
+        UserDTO userDTO = new UserDTO();
+        userDTO.setUserName("vaibhav");
+        userDTO.setPassword("vai@123");
+        userDTO.setEmail("vai@gmail.com");
+        ObjectMapper mapper = new ObjectMapper();
+        String input = mapper.writeValueAsString(userDTO);
+        Mockito.when(userService.registerStatus(Mockito.any())).thenReturn(true);
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/register")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(input);
+        mockMvc.perform(requestBuilder)
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.content().bytes("true".getBytes()))
+                .andDo(MockMvcResultHandlers.print())
+                .andReturn();
+    }
+
+    @Test
+    public void sendRequest_WhenUserNameIsNull_dReturnFalse() throws Exception {
+        UserDTO userDTO = new UserDTO();
+        userDTO.setUserName("");
+        userDTO.setPassword("vai@123");
+        userDTO.setEmail("vai@gmail.com");
+        ObjectMapper mapper = new ObjectMapper();
+        String input = mapper.writeValueAsString(userDTO);
+        Mockito.when(userService.registerStatus(Mockito.any())).thenReturn(false);
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/register")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(input);
+        mockMvc.perform(requestBuilder)
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.content().bytes("false".getBytes()))
+                .andDo(MockMvcResultHandlers.print())
+                .andReturn();
+    }
+
+    @Test
+    public void sendRequest_WhenPasswordIsNull_dReturnFalse() throws Exception {
+        UserDTO userDTO = new UserDTO();
+        userDTO.setUserName("vaibhav");
+        userDTO.setPassword("");
+        userDTO.setEmail("vai@gmail.com");
+        ObjectMapper mapper = new ObjectMapper();
+        String input = mapper.writeValueAsString(userDTO);
+        Mockito.when(userService.registerStatus(Mockito.any())).thenReturn(false);
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/register")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(input);
+        mockMvc.perform(requestBuilder)
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.content().bytes("false".getBytes()))
+                .andDo(MockMvcResultHandlers.print())
+                .andReturn();
+    }
+
+    @Test
+    public void sendRequest_WhenEmailIsNull_dReturnFalse() throws Exception {
+        UserDTO userDTO = new UserDTO();
+        userDTO.setUserName("vaibhav");
+        userDTO.setPassword("vai@123");
+        userDTO.setEmail("");
+        ObjectMapper mapper = new ObjectMapper();
+        String input = mapper.writeValueAsString(userDTO);
+        Mockito.when(userService.registerStatus(Mockito.any())).thenReturn(false);
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/register")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .content(input);

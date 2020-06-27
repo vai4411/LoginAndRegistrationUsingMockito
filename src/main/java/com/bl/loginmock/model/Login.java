@@ -1,3 +1,7 @@
+/**********************************************************************
+ * @purpose : Login Model Use For Convert Login Data Into Object
+ * @author : Vaibhav Patil
+ **********************************************************************/
 package com.bl.loginmock.model;
 
 public class Login {

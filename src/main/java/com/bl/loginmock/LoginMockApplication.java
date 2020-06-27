@@ -1,3 +1,8 @@
+/**********************************************************************
+ * @purpose : LoginMockApplication Is Main Method Class
+ * @author : Vaibhav Patil
+ **********************************************************************/
+
 package com.bl.loginmock;
 
 import org.springframework.boot.SpringApplication;

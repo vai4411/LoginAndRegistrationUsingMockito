@@ -30,7 +30,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void loginStatus_WhenPassLoginDTO_ShouldReturnTrue() {
+    public void loginStatus_WhenLoginCredentialsCorrect_ShouldReturnTrue() {
         LoginDTO loginDTO = new LoginDTO();
         loginDTO.setUserName("rp");
         loginDTO.setPassword("rp@123");
@@ -41,10 +41,10 @@ public class UserControllerTest {
     }
 
     @Test
-    public void loginStatus_WhenPassLoginDTO_ShouldReturnFalse() {
+    public void loginStatus_WhenLoginCredentialsIncorrect_ShouldReturnFalse() {
         LoginDTO loginDTO = new LoginDTO();
-        loginDTO.setUserName("rp");
-        loginDTO.setPassword("rp@123");
+        loginDTO.setUserName("dm");
+        loginDTO.setPassword("dm@123");
         Mockito.when(userService.loginStatus(Mockito.any())).thenReturn(false);
         ResponseEntity<Boolean> result = userController.loginProcess(loginDTO);
         Assert.assertEquals(HttpStatus.OK,result.getStatusCode());
@@ -52,7 +52,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void registerProcessStatus_WhenPassUserDTO_ShouldReturnTrue() {
+    public void registerProcessStatus_WhenValidCredentials_ShouldReturnTrue() {
         UserDTO userDTO = new UserDTO();
         userDTO.setUserName("rp");
         userDTO.setPassword("rp@123");
@@ -64,15 +64,40 @@ public class UserControllerTest {
     }
 
     @Test
-    public void registerProcessStatus_WhenPassUserDTO_ShouldReturnFalse() {
+    public void registerProcessStatus_WhenUserNameIsNull_ShouldReturnFalse() {
         UserDTO userDTO = new UserDTO();
         userDTO.setUserName("");
+        userDTO.setPassword("rp@123");
+        userDTO.setEmail("rp@gmail.com");
+        Mockito.when(userService.registerStatus(Mockito.any())).thenReturn(false);
+        ResponseEntity<Boolean> result = userController.registerProcess(userDTO);
+        Assert.assertEquals(HttpStatus.OK, result.getStatusCode());
+        Assert.assertFalse(result.getBody());
+    }
+
+    @Test
+    public void registerProcessStatus_WhenPasswordIsNull_ShouldReturnFalse() {
+        UserDTO userDTO = new UserDTO();
+        userDTO.setUserName("rp");
         userDTO.setPassword("");
+        userDTO.setEmail("rp@gmail.com");
+        Mockito.when(userService.registerStatus(Mockito.any())).thenReturn(false);
+        ResponseEntity<Boolean> result = userController.registerProcess(userDTO);
+        Assert.assertEquals(HttpStatus.OK, result.getStatusCode());
+        Assert.assertFalse(result.getBody());
+    }
+
+    @Test
+    public void registerProcessStatus_WhenEmailIsNull_ShouldReturnFalse() {
+        UserDTO userDTO = new UserDTO();
+        userDTO.setUserName("rp");
+        userDTO.setPassword("rp@123");
         userDTO.setEmail("");
         Mockito.when(userService.registerStatus(Mockito.any())).thenReturn(false);
         ResponseEntity<Boolean> result = userController.registerProcess(userDTO);
         Assert.assertEquals(HttpStatus.OK, result.getStatusCode());
         Assert.assertFalse(result.getBody());
     }
+
 }
 

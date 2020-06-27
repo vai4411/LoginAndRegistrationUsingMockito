@@ -1,13 +1,6 @@
 package com.bl.loginmock.model;
 
 public class Login {
-    @Override
-    public String toString() {
-        return "Login{" +
-                "userName='" + userName + '\'' +
-                ", password='" + password + '\'' +
-                '}';
-    }
 
     private String userName;
     private String password;

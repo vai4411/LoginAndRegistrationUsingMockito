@@ -41,7 +41,7 @@ public class LoginMockTest {
     }
 
     @Test
-    public void sendRequest_WhenSuccessfullyPass_ShouldReturnHttpStatusOKTrue() throws Exception {
+    public void sendRequest_WhenSuccessfullyPass_ShouldReturnHttpStatusOKAndResultTrue() throws Exception {
         LoginDTO loginDTO = new LoginDTO();
         loginDTO.setUserName("vaibhav");
         loginDTO.setPassword("vai@123");
@@ -61,7 +61,7 @@ public class LoginMockTest {
     }
 
     @Test
-    public void sendRequest_WhenSuccessfullyPass_ShouldReturnHttpStatusOKFalse() throws Exception {
+    public void sendRequest_WhenSuccessfullyPass_ShouldReturnHttpStatusOKAndResultFalse() throws Exception {
         LoginDTO loginDTO = new LoginDTO();
         loginDTO.setUserName("vaibhav");
         loginDTO.setPassword("vai@123");

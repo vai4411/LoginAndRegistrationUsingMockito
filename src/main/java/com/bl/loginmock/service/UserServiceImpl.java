@@ -19,7 +19,7 @@ import java.util.List;
 public class UserServiceImpl implements IUserService {
 
     @Autowired
-    IUserRepository repository;
+    private IUserRepository repository;
 
     /**+
      * @purpose : Used For Check UserName And Password Matches To Database Entries Or Not
@@ -28,8 +28,9 @@ public class UserServiceImpl implements IUserService {
      */
     @Override
     public boolean loginStatus(Login login) {
-        List<User> userList = repository.findByFirstNameAndLastName(login.getUserName(),login.getPassword());
-        System.out.println(userList);
+        List<User> userList = (login != null && !ObjectUtils.isEmpty(login.getUserName()) &&
+                                !ObjectUtils.isEmpty(login.getPassword()))
+                                ? repository.findByFirstNameAndLastName(login.getUserName(),login.getPassword()) : null;
             return !ObjectUtils.isEmpty(userList);
     }
 

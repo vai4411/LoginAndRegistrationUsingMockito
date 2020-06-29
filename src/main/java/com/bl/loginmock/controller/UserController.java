@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     @Autowired
-    IUserService userService;
+    private IUserService userService;
 
     /**+
      * @purpose : Used For Handling Login Requests And Response

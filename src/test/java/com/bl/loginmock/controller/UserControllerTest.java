@@ -52,6 +52,39 @@ public class UserControllerTest {
     }
 
     @Test
+    public void loginStatus_WhenLoginDetailsIsNull_ShouldReturnFalse() {
+        LoginDTO loginDTO = new LoginDTO();
+        loginDTO.setUserName("");
+        loginDTO.setPassword("");
+        Mockito.when(userService.loginStatus(Mockito.any())).thenReturn(false);
+        ResponseEntity<Boolean> result = userController.loginProcess(loginDTO);
+        Assert.assertEquals(HttpStatus.OK,result.getStatusCode());
+        Assert.assertFalse(result.getBody());
+    }
+
+    @Test
+    public void loginStatus_WhenUserNameIsNull_ShouldReturnFalse() {
+        LoginDTO loginDTO = new LoginDTO();
+        loginDTO.setUserName("");
+        loginDTO.setPassword("dm@123");
+        Mockito.when(userService.loginStatus(Mockito.any())).thenReturn(false);
+        ResponseEntity<Boolean> result = userController.loginProcess(loginDTO);
+        Assert.assertEquals(HttpStatus.OK,result.getStatusCode());
+        Assert.assertFalse(result.getBody());
+    }
+
+    @Test
+    public void loginStatus_WhenPasswordIsNull_ShouldReturnFalse() {
+        LoginDTO loginDTO = new LoginDTO();
+        loginDTO.setUserName("dm");
+        loginDTO.setPassword("");
+        Mockito.when(userService.loginStatus(Mockito.any())).thenReturn(false);
+        ResponseEntity<Boolean> result = userController.loginProcess(loginDTO);
+        Assert.assertEquals(HttpStatus.OK,result.getStatusCode());
+        Assert.assertFalse(result.getBody());
+    }
+
+    @Test
     public void registerProcessStatus_WhenValidCredentials_ShouldReturnTrue() {
         UserDTO userDTO = new UserDTO();
         userDTO.setUserName("rp");
